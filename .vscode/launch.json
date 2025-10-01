@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug",
+            "program": "${workspaceFolder}/main",
+            "args": [
+                "ABC",
+                "d"
+            ],
+            "preLaunchTask": "${defaultBuildTask}",
+        }
+    ],
+    "version": "0.2.0",
+}
