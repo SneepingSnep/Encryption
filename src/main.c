@@ -7,46 +7,79 @@
 #include <string.h>
 #include <time.h>
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz"
+#define Vigenere "vigenere"
+#define Caesar "caesar"
 char *caesar_encrypt(char *plaintext);
 char *caesar_decrypt(char *ciphertext);
+int encryptionstate(char *encryptionmode);
+int startprocess(int mode, char **argv);
+void makestringlower(char *string);
+
+char EncryptionMode[16];
 int main(int argc, char *argv[]) {
 
-  char initialmsgg[100];
-  char DecryptorEncrypt[5];
-  strcpy(DecryptorEncrypt, argv[2]);
-  strcpy(initialmsgg, argv[1]);
-  for (int i = 0; i < strlen(initialmsgg); i++) {
-    initialmsgg[i] = tolower(initialmsgg[i]);
+  strcpy(EncryptionMode, argv[1]);
+  int state = encryptionstate(EncryptionMode);
+  switch (state) {
+  case 1:
+    startprocess(state, argv);
+    break;
   }
-  for (int i = 0; i < strlen(initialmsgg); i++) {
-    DecryptorEncrypt[i] = tolower(DecryptorEncrypt[i]);
-  }
-  if (strcmp(DecryptorEncrypt, "d") == 0) {
-    char *decryptedmsg = caesar_decrypt(initialmsgg);
-    puts(decryptedmsg);
-  } else if (strcmp(DecryptorEncrypt, "e") == 0) {
-    char *encryptedmsg = caesar_encrypt(initialmsgg);
-    puts(encryptedmsg);
-  }
+  // case 2:
+
+  //   break;
+  //}
 }
 
+int startprocess(int mode, char **argv) {
+  char initialmsgg[100];
+  char DecryptorEncrypt[5];
+  strcpy(DecryptorEncrypt, argv[3]);
+  strcpy(initialmsgg, argv[2]);
+
+  makestringlower(DecryptorEncrypt);
+  makestringlower(initialmsgg);
+
+  if (mode == 1) {
+    for (int i = 0; i < strlen(initialmsgg); i++) {
+      initialmsgg[i] = tolower(initialmsgg[i]);
+    }
+    for (int i = 0; i < strlen(initialmsgg); i++) {
+      DecryptorEncrypt[i] = tolower(DecryptorEncrypt[i]);
+    }
+    if (strcmp(DecryptorEncrypt, "d") == 0) {
+      char *decryptedmsg = caesar_decrypt(initialmsgg);
+      puts(decryptedmsg);
+      free(decryptedmsg);
+    } else if (strcmp(DecryptorEncrypt, "e") == 0) {
+      char *encryptedmsg = caesar_encrypt(initialmsgg);
+      puts(encryptedmsg);
+      free(encryptedmsg);
+    }
+  } else if (mode == 2) {
+
+    for (int i = 0; i < strlen(initialmsgg); i++) {
+      initialmsgg[i] = tolower(initialmsgg[i]);
+    }
+    for (int i = 0; i < strlen(initialmsgg); i++) {
+      DecryptorEncrypt[i] = tolower(DecryptorEncrypt[i]);
+    }
+    if (strcmp(DecryptorEncrypt, "d") == 0) {
+      char *decryptedmsg = caesar_decrypt(initialmsgg);
+      puts(decryptedmsg);
+      free(decryptedmsg);
+    } else if (strcmp(DecryptorEncrypt, "e") == 0) {
+      char *encryptedmsg = caesar_encrypt(initialmsgg);
+      puts(encryptedmsg);
+      free(encryptedmsg);
+    }
+  }
+}
 char *caesar_encrypt(char *plaintext) {
   printf("%s\n", plaintext);
   char letterinstring;
   char *encryptedstringpointer = (char *)malloc(strlen(plaintext) + 1);
   memset(encryptedstringpointer, 0, strlen(plaintext) + 1);
-#if 0
-
-
- printf("(%s)", encryptedstringpointer);
-  for (int i = 0; i < strlen(plaintext); i++) {
-    printf("%c\n", plaintext[i]);
-
-    encryptedstringpointer[i] = ALPHABET[i + 3];
-  }
-  encryptedstringpointer[strlen(plaintext)] = '\0';
-  printf("%s\n", encryptedstringpointer);
-#endif
   for (int i = 0; i < strlen(plaintext); i++) {
     letterinstring = plaintext[i];
 
@@ -79,7 +112,7 @@ char *caesar_decrypt(char *ciphertext) {
         char brother = ALPHABET[(j - 3 + strlen(ALPHABET)) % strlen(ALPHABET)];
         int strlength = strlen(ALPHABET);
         int borther = (j - 3) % (int)strlen(ALPHABET);
-        int brother3 = (0 - 3) % (size_t)26;
+        int brother2 = (0 - 3) % (size_t)26;
         decryptedstringpointer[i] = brother;
       }
     }
@@ -92,3 +125,15 @@ void makestringlower(char *string) {
     string[i] = tolower(string[i]);
   }
 }
+
+int encryptionstate(char *encryptionmode) {
+  makestringlower(encryptionmode);
+  if (strcmp(encryptionmode, Caesar) == 0 || encryptionmode[0] == 'c') {
+    return 1;
+  } else if (strcmp(encryptionmode, Vigenere) == 0 ||
+             encryptionmode[0] == 'v') {
+    return 2;
+  }
+}
+// char *vigenere_encrypt(char *plaintext, char *key) {}
+// char *vigenere_decrypt(char *ciphertext, char *key);

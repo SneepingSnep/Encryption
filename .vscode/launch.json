@@ -6,6 +6,7 @@
             "name": "Debug",
             "program": "${workspaceFolder}/main",
             "args": [
+                "Caesar",
                 "ABC",
                 "d"
             ],
