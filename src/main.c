@@ -43,11 +43,11 @@ int startprocess(int mode, char **argv) {
   if (mode == 1) {
     if (strcmp(DecryptorEncrypt, "d") == 0) {
       char *decryptedmsg = caesar_decrypt(initialmsgg);
-      puts(decryptedmsg);
+      printf("Decrypted msg: %s", decryptedmsg);
       free(decryptedmsg);
     } else if (strcmp(DecryptorEncrypt, "e") == 0) {
       char *encryptedmsg = caesar_encrypt(initialmsgg);
-      puts(encryptedmsg);
+      printf("Encrypted msg: %s", encryptedmsg);
       free(encryptedmsg);
     }
   } else if (mode == 2) {
@@ -55,11 +55,11 @@ int startprocess(int mode, char **argv) {
     makestringlower(keystring);
     if (strcmp(DecryptorEncrypt, "d") == 0) {
       char *decryptedmsg = vigenere_decrypt(initialmsgg, keystring);
-      puts(decryptedmsg);
+      printf("Decrypted msg: %s", decryptedmsg);
       free(decryptedmsg);
     } else if (strcmp(DecryptorEncrypt, "e") == 0) {
       char *encryptedmsg = vigenere_encrypt(initialmsgg, argv[4]);
-      puts(encryptedmsg);
+      printf("Encrypted msg: %s", encryptedmsg);
       free(encryptedmsg);
     }
   }
@@ -67,7 +67,7 @@ int startprocess(int mode, char **argv) {
 }
 
 void makestringlower(char *string) {
-  for (int i = 0; i < strlen(string); i++) {
+  for (size_t i = 0; i < strlen(string); i++) {
     string[i] = tolower(string[i]);
   }
 }

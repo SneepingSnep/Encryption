@@ -32,12 +32,22 @@
 CC = clang
 CFLAGS = -Wall -Wextra -std=gnu2y -g -Iheaders
 
+ARGV1 = Vigenere LXFOPVEFRNHR d LEMON
+ARGV2 = Vigenere ATTACKATDAWN e LEMON
+ARGV3 = caesar GDPQ d
+ARGV4 = caesar DAMN e
+
 # Source and object files
 SRC = src/main.c src/caesar.c src/vigenere.c
 OBJ = $(SRC:.c=.o)
+OBJ1 = ./main.exe
 
 # Target executable
 TARGET = main
+TARGET1 = run1
+TARGET2 = run2
+TARGET3 = run3
+TARGET4 = run4
 
 # Build executable
 $(TARGET): $(OBJ)
@@ -50,3 +60,15 @@ $(TARGET): $(OBJ)
 # Clean up generated files
 clean:
 	rm -f $(OBJ) $(TARGET)
+
+$(TARGET1): $(OBJ1)
+	$(OBJ1) $(ARGV1)
+
+$(TARGET2): $(OBJ1)
+	$(OBJ1) $(ARGV2)
+	
+$(TARGET3): $(OBJ1)
+	$(OBJ1) $(ARGV3)
+
+$(TARGET4): $(OBJ1)
+	$(OBJ1) $(ARGV4)

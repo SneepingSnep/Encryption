@@ -7,6 +7,7 @@
 #define ALPHABET "abcdefghijklmnopqrstuvwxyz"
 
 char *vigenere_encrypt(char *plaintext, char *key) {
+  printf("Provide plaintext: %s\n", plaintext);
   bool loopstate = true;
   char letterinstring;
   char keystring;
@@ -14,7 +15,7 @@ char *vigenere_encrypt(char *plaintext, char *key) {
   int keycounter = 0;
   char *encryptedstringpointer = (char *)malloc(strlen(plaintext) + 1);
   memset(encryptedstringpointer, 0, strlen(plaintext) + 1);
-  for (int i = 0; i < strlen(plaintext); i++) {
+  for (size_t i = 0; i < strlen(plaintext); i++) {
     loopstate = true;
     letterinstring = plaintext[i];
     if (keycounter >= keylength) {
@@ -22,13 +23,12 @@ char *vigenere_encrypt(char *plaintext, char *key) {
     }
     keystring = key[keycounter];
 
-    // char brother = ALPHABET[3];
-    for (int j = 0; j < strlen(ALPHABET); j++) {
+    for (size_t j = 0; j < strlen(ALPHABET); j++) {
       if (!loopstate)
         break;
 
       if (letterinstring == ALPHABET[j]) {
-        for (int k = 0; k < strlen(ALPHABET); k++) {
+        for (size_t k = 0; k < strlen(ALPHABET); k++) {
           if (keystring == ALPHABET[k]) {
             encryptedstringpointer[i] = ALPHABET[(j + k) % strlen(ALPHABET)];
             loopstate = false;
@@ -39,11 +39,11 @@ char *vigenere_encrypt(char *plaintext, char *key) {
     }
     keycounter++;
   }
-  puts(encryptedstringpointer);
   return encryptedstringpointer;
 }
 
 char *vigenere_decrypt(char *ciphertext, char *key) {
+  printf("Provide ciphertext: %s\n", ciphertext);
   bool loopstate = true;
   char letterinstring;
   char keystring;
@@ -51,7 +51,7 @@ char *vigenere_decrypt(char *ciphertext, char *key) {
   int keycounter = 0;
   char *decryptedstringpointer = (char *)malloc(strlen(ciphertext) + 1);
   memset(decryptedstringpointer, 0, strlen(ciphertext) + 1);
-  for (int i = 0; i < strlen(ciphertext); i++) {
+  for (size_t i = 0; i < strlen(ciphertext); i++) {
     loopstate = true;
     letterinstring = ciphertext[i];
     if (keycounter >= keylength) {
@@ -59,13 +59,12 @@ char *vigenere_decrypt(char *ciphertext, char *key) {
     }
     keystring = key[keycounter];
 
-    // char brother = ALPHABET[3];
-    for (int j = 0; j < strlen(ALPHABET); j++) {
+    for (size_t j = 0; j < strlen(ALPHABET); j++) {
       if (!loopstate)
         break;
 
       if (letterinstring == ALPHABET[j]) {
-        for (int k = 0; k < strlen(ALPHABET); k++) {
+        for (size_t k = 0; k < strlen(ALPHABET); k++) {
           if (keystring == ALPHABET[k]) {
             decryptedstringpointer[i] =
                 ALPHABET[(j - k + strlen(ALPHABET)) % strlen(ALPHABET)];
@@ -77,6 +76,5 @@ char *vigenere_decrypt(char *ciphertext, char *key) {
     }
     keycounter++;
   }
-  puts(decryptedstringpointer);
   return decryptedstringpointer;
 }
